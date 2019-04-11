@@ -2,26 +2,27 @@ import React, { Component } from "react"
 import Cell from "./Cell"
 
 class Column extends Component {
-    constructor (props){
+    constructor(props) {
         super(props)
         this.state = {
-            cells : []
+            cells: [],
+            activeCell: -1
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.createCells()
     }
 
     createCells = () => {
         const output = [];
-        for (let i = 0; i<Math.floor(window.innerHeight / 32); i++){
+        for (let i = 0; i < Math.floor(window.innerHeight / 32); i++) {
             output.push(i)
         }
 
         this.setState({
-            cells:[...output],
-            activeCell : -1
+            cells: [...output],
+
         })
 
     }
@@ -34,24 +35,32 @@ class Column extends Component {
 
 
     render() {
-       
+
         return (
-            <div style={this.theme}>
-                     {this.state.cells.map((cell, index) => {
-                        if ( (index === 0) || (index === this.state.activeCell+1) ){
-                            if ( Math.floor(Math.random() * 3) === 2 ){
+            <div style={this.theme} className={`col col-${this.props.index}`}>
+                {this.state.cells.map((cell, index) => {
+                    if ((index === this.state.activeCell + 1)) {
+                        if (Math.floor(Math.random() * 2) === 1) {
+                            
                                 this.setState({
                                     activeCell: index
                                 })
-                            }
+                            
+
                         }
-                        return <Cell 
-                        key={cell} 
-                        className={`cell cell-${index} ${this.state.activeCell === index ? "active" : ""}`} 
-                        active={this.state.activeCell === index ? true : false}/>
-                     }
-                    
-                )}       
+                    } else if (this.state.activeCell >= this.state.cells.length-1) {
+                        this.setState({
+                            activeCell: 0
+                        })
+                    }
+                    return <Cell
+                        key={cell}
+                        index={index}
+                        character={this.state.activeCell === index ? String.fromCharCode(Math.floor(Math.random() * 25) + 97) : false}
+                        active={this.state.activeCell === index ? true : false} />
+                }
+
+                )}
             </div>
         )
     }

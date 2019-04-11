@@ -9,10 +9,13 @@ class Matrice extends Component {
             frame: 0,
             running: false
         }
+
+        
     }
 
     componentDidMount(){
         this.createCol()
+        this.run()
     }
 
     createCol = () => {
@@ -28,14 +31,21 @@ class Matrice extends Component {
         window.tab = output // debug
     }
 
+
+
     run = () => {
         if (!this.state.running) {
+
+            this.setState({
+                running : null
+            })
+
             this.setState({
                 running : setInterval(() => {
                     this.setState({
                         frame : this.state.frame + 1
                     })
-                })
+                }, 1000)
             })
         }
     }
@@ -50,7 +60,7 @@ class Matrice extends Component {
             <div className = "matriceContainer" style={this.theme}> 
             
                 {this.state.colums.map((column, index) => (
-                    <Column key={column} className={`col col-${index}`}/>
+                    <Column key={column} index={index}/>
                 ))}
                             
             </div>
