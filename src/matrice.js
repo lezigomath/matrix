@@ -16,7 +16,7 @@ class Matrice extends Component {
     createCol = () => {
         const output = [];
         for (let i = 0; i<Math.floor(window.innerWidth / 32); i++){
-            output.push(0)
+            output.push(i)
 
         }
 
@@ -25,13 +25,18 @@ class Matrice extends Component {
         })
         window.tab = output // debug
     }
+
+    theme = {
+        color: 'white',
+        fontFamily: 'consolas'
+    }
     render() {
         
         return (
-            <div className = "matriceContainer"> 
+            <div className = "matriceContainer" style={this.theme}> 
             
                 {this.state.colums.map(column => (
-                    <Column/>
+                    <Column key={column}/>
                 ))}
                             
             </div>

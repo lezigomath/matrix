@@ -7,11 +7,17 @@ class Cell extends Component {
         }
     }
 
+    
+    theme = {
+        width: '32px',
+        height: '32px'
+    }
+
     render() {
        
         return (
-            <div className = "cell"> 
-                            
+            <div className = "cell" style={this.theme}> 
+                {this.props.value}     
             </div>
         )
     }
