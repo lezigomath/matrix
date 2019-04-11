@@ -5,7 +5,9 @@ class Matrice extends Component {
     constructor (props){
         super(props)
         this.state = {
-            colums : []
+            colums : [],
+            frame: 0,
+            running: false
         }
     }
 
@@ -26,6 +28,18 @@ class Matrice extends Component {
         window.tab = output // debug
     }
 
+    run = () => {
+        if (!this.state.running) {
+            this.setState({
+                running : setInterval(() => {
+                    this.setState({
+                        frame : this.state.frame + 1
+                    })
+                })
+            })
+        }
+    }
+
     theme = {
         color: 'white',
         fontFamily: 'consolas'
@@ -35,8 +49,8 @@ class Matrice extends Component {
         return (
             <div className = "matriceContainer" style={this.theme}> 
             
-                {this.state.colums.map(column => (
-                    <Column key={column}/>
+                {this.state.colums.map((column, index) => (
+                    <Column key={column} className={`col col-${index}`}/>
                 ))}
                             
             </div>

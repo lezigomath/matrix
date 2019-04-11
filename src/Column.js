@@ -20,7 +20,8 @@ class Column extends Component {
         }
 
         this.setState({
-            cells:[...output]
+            cells:[...output],
+            activeCell : -1
         })
 
     }
@@ -35,10 +36,22 @@ class Column extends Component {
     render() {
        
         return (
-            <div className = "column" style={this.theme}>
-                     {this.state.cells.map(cell => (
-                    <Cell key={cell} value={String.fromCharCode(Math.floor(Math.random() * 25) + 97)}/>
-                ))}       
+            <div style={this.theme}>
+                     {this.state.cells.map((cell, index) => {
+                        if ( (index === 0) || (index === this.state.activeCell+1) ){
+                            if ( Math.floor(Math.random() * 3) === 2 ){
+                                this.setState({
+                                    activeCell: index
+                                })
+                            }
+                        }
+                        return <Cell 
+                        key={cell} 
+                        className={`cell cell-${index} ${this.state.activeCell === index ? "active" : ""}`} 
+                        active={this.state.activeCell === index ? true : false}/>
+                     }
+                    
+                )}       
             </div>
         )
     }

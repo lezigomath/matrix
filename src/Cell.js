@@ -3,7 +3,8 @@ import React, { Component } from "react"
 class Cell extends Component {
     constructor (props){
         super(props)
-        this.state = {
+        this.state = { 
+            character : "0"
         }
     }
 
@@ -13,11 +14,18 @@ class Cell extends Component {
         height: '32px'
     }
 
+    changeChar = () => {
+        const char = String.fromCharCode(Math.floor(Math.random() * 25) + 97)
+        this.setState({
+            character: char
+        })
+    }
+
     render() {
-       
+       if (this.props.active) this.changeChar()
         return (
-            <div className = "cell" style={this.theme}> 
-                {this.props.value}     
+            <div style={this.theme}> 
+                {this.state.character}     
             </div>
         )
     }
